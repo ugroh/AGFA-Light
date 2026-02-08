@@ -1,7 +1,7 @@
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Startpaket für AGFA-Master
 %% agfa-art.sty
-%% Stand: 2025/09/14
+%% Stand: 2026-02-08
 %% Literatur: Der LaTeX-Begleiter, A.4, Seite 910 ff
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Kenndaten
@@ -13,16 +13,18 @@
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{ifthen}
 	\provideboolean{numeric}
-	\provideboolean{alphabetic}     
-	\provideboolean{philosophy}      
- 	\provideboolean{english}
-	\provideboolean{refenglish}
+	%\provideboolean{alphabetic}     
+	%\provideboolean{philosophy}      
+	%\provideboolean{urldoi}
+ 	%\provideboolean{english}
+ 	\provideboolean{german}
+	%\provideboolean{refenglish}
 	\provideboolean{lmodern}
 	\provideboolean{libertinus}
-	\provideboolean{thmframed}
-	\provideboolean{framed}
+	%\provideboolean{thmframed}
+	%\provideboolean{framed}
 	\provideboolean{review}
-	\provideboolean{urldoi}
+
 %%
 
 %% -- Deklaration von Optionen
@@ -33,19 +35,19 @@
 %% -- Sprache (alle english-bezogenen Aktionen zusammen)
 %% --
 
-\DeclareOption{english}{%
-	\setboolean{english}{true}%
-	\setboolean{refenglish}{true}%
-	\PassOptionsToPackage{english}{agfa-babel}%
-	\PassOptionsToPackage{english}{agfa-hyperef}%
-	\PassOptionsToPackage{english}{agfa-theorem}%
-	\PassOptionsToPackage{english}{agfa-biblio}%  
-}
+%\DeclareOption{english}{%
+%	\setboolean{english}{true}%
+%	\setboolean{refenglish}{true}%
+%	\PassOptionsToPackage{english}{agfa-babel}%
+%	\PassOptionsToPackage{english}{agfa-hyperef}%
+%	\PassOptionsToPackage{english}{agfa-theorem}%
+%	\PassOptionsToPackage{english}{agfa-biblio}%  
+%}
 
 %% -- mathematische Umgebungen mit/ohne Rahmen
 %% --
 
-\DeclareOption{thmframed}{\PassOptionsToPackage{framed}{agfa-theorem}}
+%\DeclareOption{thmframed}{\PassOptionsToPackage{framed}{agfa-theorem}}
 
 %% -- Schrift
 %% --
@@ -53,13 +55,13 @@
 \DeclareOption{lmodern}{\PassOptionsToPackage{lmodern}{agfa-font}}
 \DeclareOption{libertinus}{\PassOptionsToPackage{libertinus}{agfa-font}}
 
-%% -- Bibliographie-Stile
+%% -- Bibliographie-Stile  
 %% --
 
 \DeclareOption{numeric}{\PassOptionsToPackage{numeric}{agfa-biblio}}
 \DeclareOption{alphabetic}{\PassOptionsToPackage{alphabetic}{agfa-biblio}}
-\DeclareOption{philosophy}{\PassOptionsToPackage{philosophy}{agfa-biblio}}
-\DeclareOption{urldoi}{\PassOptionsToPackage{urldoi}{agfa-biblio}}
+%\DeclareOption{philosophy}{\PassOptionsToPackage{philosophy}{agfa-biblio}}
+%\DeclareOption{urldoi}{\PassOptionsToPackage{urldoi}{agfa-biblio}}
 
 %% -- Zeilenabstand verdoppelt
 %% --
@@ -100,6 +102,37 @@
  }
  {%% -- else
  }
+
+%%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Automatische Klammergrößenanpassung
+%%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% WARNUNG: Macht (), [] zu aktiven Zeichen!
+%%% Kann in TikZ, Beamer oder anderen Paketen zu Problemen führen.
+%%% Quelle: DTK 1/2011 & Herbert Voß
+%%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\makeatletter
+%\gdef\resetMathstrut@{%
+%    \setbox\z@\hbox{%
+%        \mathchardef\@tempa\mathcode`\!\relax%
+%        \def\@tempb##1"##2##3{\the\textfont"##3\char"}%
+%        \expandafter\@tempb\meaning\@tempa \relax
+%    }%
+%    \ht\Mathstrutbox@\ht\z@ \dp\Mathstrutbox@\dp\z@}
+%\makeatother
+%
+%\begingroup
+%    \catcode`(\active \xdef({\left\string(}
+%    \catcode`)\active \xdef){\right\string)}
+%    \catcode`[\active \xdef[{\left\string[}
+%    \catcode`]\active \xdef]{\right\string]}
+%\endgroup
+%\mathcode`(="8000 \mathcode`)="8000
+%\mathcode`[="8000 \mathcode`]="8000
+%
+%%% Geschweifte Klammern: Funktionieren sowohl in Mathe als auch Text
+%\DeclareRobustCommand{\{}{\ifmmode\left\lbrace\else\textbraceleft\fi}
+%\DeclareRobustCommand{\}}{\ifmmode\right\rbrace\else\textbraceright\fi}
 
 \endinput
 

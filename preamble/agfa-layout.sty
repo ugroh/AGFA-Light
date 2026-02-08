@@ -1,15 +1,15 @@
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Layout und Überschriften für AGFA-Master
 %% agfa-layout.sty
-%% Stand: 2025/09/14
+%% Stand: 2026-02-08
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \NeedsTeXFormat{LaTeX2e}	%
-\ProvidesPackage{./preamble/agfa-layout}
+\ProvidesPackage{agfa-layout}
 %% --
 \RequirePackage{ifthen}
-\provideboolean{english}
-\DeclareOption{english}{\setboolean{english}{true}}
+%\provideboolean{english}
+%\DeclareOption{english}{\setboolean{english}{true}}
 \ProcessOptions\relax
 
 \setkomafont{sectioning}{\rmfamily\bfseries} 
@@ -90,29 +90,29 @@
 %% ---------------------------
 %% Zweiseitig und Einseitig nach Abfrage
 %% ---------------------------
-\ifthenelse{\boolean{@twoside}} % 
-{%% --> Zweiseitig
-
-\ihead{\headmark} 	%% -- innen
-
-\rohead{%% außen gerade
-  \makebox[0pt][l]{%
-    \makebox[\marginparsep][r]{%
-      \rule[-\dp\strutbox]{1pt}{\normalbaselineskip}\nobreakspace
-    }%
-    \makebox[\marginparwidth][l]{\pagemark}%
-  }}
-
-\lehead{%% außen ungerade
-  \makebox[0pt][r]{%
-    \makebox[\marginparwidth][r]{\pagemark}%
-    \makebox[\marginparsep][l]{%
-      \nobreakspace\rule[-\dp\strutbox]{1pt}{\normalbaselineskip}%
-    }}}
-
-}%% <-- Ende Zweiseitig
-%% 
-{%% --> Einseitig
+%\ifthenelse{\boolean{@twoside}} % 
+%{%% --> Zweiseitig
+%
+%\ihead{\headmark} 	%% -- innen
+%
+%\rohead{%% außen gerade
+%  \makebox[0pt][l]{%
+%    \makebox[\marginparsep][r]{%
+%      \rule[-\dp\strutbox]{1pt}{\normalbaselineskip}\nobreakspace
+%    }%
+%    \makebox[\marginparwidth][l]{\pagemark}%
+%  }}
+%
+%\lehead{%% außen ungerade
+%  \makebox[0pt][r]{%
+%    \makebox[\marginparwidth][r]{\pagemark}%
+%    \makebox[\marginparsep][l]{%
+%      \nobreakspace\rule[-\dp\strutbox]{1pt}{\normalbaselineskip}%
+%    }}}
+%
+%}%% <-- Ende Zweiseitig
+%%% 
+%{%% --> Einseitig
 \lohead{\scshape\headmark}	% Überschrift Abschnitt
 \chead{}
 \rohead{%					% Seite mit Balken
@@ -122,7 +122,7 @@
     }%
     \makebox[\marginparwidth][l]{\pagemark}%
   }}
-}%% <-- Ende Zweiseitig
+%}%% <-- Ende Zweiseitig
 %%
 \pagestyle{scrheadings}
 
