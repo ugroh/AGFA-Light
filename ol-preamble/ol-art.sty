@@ -1,0 +1,128 @@
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Startpaket für AGFA-Master
+%% agfa-art.sty
+%% Stand: 2026-02-08
+%% Literatur: Der LaTeX-Begleiter, A.4, Seite 910 ff
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Kenndaten
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\NeedsTeXFormat{LaTeX2e}											
+\ProvidesPackage{ol-art}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Initialisierungen
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{ifthen}
+	\provideboolean{numeric}
+ 	\provideboolean{german}
+	\provideboolean{lmodern}
+	\provideboolean{libertinus}
+	\provideboolean{review}
+%%
+
+%% -- Deklaration von Optionen
+%% --
+
+\DeclareOption*{\expandafter\PassOptionsToClass\expandafter{\CurrentOption}{scrartcl}}
+
+%% -- Schrift
+%% --
+
+\DeclareOption{lmodern}{\PassOptionsToPackage{lmodern}{ol-font}}
+\DeclareOption{libertinus}{\PassOptionsToPackage{libertinus}{ol-font}}
+
+%% -- Bibliographie-Stile  
+%% --
+
+\DeclareOption{numeric}{\PassOptionsToPackage{numeric}{ol-biblio}}
+%\DeclareOption{alphabetic}{\PassOptionsToPackage{alphabetic}{ol-biblio}}
+
+%% -- Zeilenabstand verdoppelt
+%% --
+\DeclareOption{review}{\setboolean{review}{true}} 
+
+\ProcessOptions\relax
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Laden von Paketen 
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage[all]{onlyamsmath}			% Fehler bei Eingabe Mathematik
+\RequirePackage[l2tabu,orthodox]{nag}
+\RequirePackage{etex,etoolbox,letltxmacro,metalogo}
+
+%% -- 
+\RequirePackage{ol-font}
+\RequirePackage{ol-layout}
+\RequirePackage{ol-pakete}
+\RequirePackage{ol-babel}
+\RequirePackage{ol-listen}
+%% --
+\RequirePackage{ol-mathtools}
+\RequirePackage{ol-theorem}
+%% --
+\RequirePackage{ol-defn}
+\RequirePackage{ol-biblio}
+%% --
+\RequirePackage{ol-hyperref}
+%% --
+\RequirePackage{ol-abkuerz}	
+
+%% -- Zeilenabstand für review
+%% --
+\ifthenelse{\boolean{review}}
+{%% -- if
+	\RequirePackage[doublespacing]{setspace}
+ }
+ {%% -- else
+ }
+
+%%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Automatische Klammergrößenanpassung
+%%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% WARNUNG: Macht (), [] zu aktiven Zeichen!
+%%% Kann in TikZ, Beamer oder anderen Paketen zu Problemen führen.
+%%% Quelle: DTK 1/2011 & Herbert Voß
+%%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\makeatletter
+%\gdef\resetMathstrut@{%
+%    \setbox\z@\hbox{%
+%        \mathchardef\@tempa\mathcode`\!\relax%
+%        \def\@tempb##1"##2##3{\the\textfont"##3\char"}%
+%        \expandafter\@tempb\meaning\@tempa \relax
+%    }%
+%    \ht\Mathstrutbox@\ht\z@ \dp\Mathstrutbox@\dp\z@}
+%\makeatother
+%
+%\begingroup
+%    \catcode`(\active \xdef({\left\string(}
+%    \catcode`)\active \xdef){\right\string)}
+%    \catcode`[\active \xdef[{\left\string[}
+%    \catcode`]\active \xdef]{\right\string]}
+%\endgroup
+%\mathcode`(="8000 \mathcode`)="8000
+%\mathcode`[="8000 \mathcode`]="8000
+%
+%%% Geschweifte Klammern: Funktionieren sowohl in Mathe als auch Text
+%\DeclareRobustCommand{\{}{\ifmmode\left\lbrace\else\textbraceleft\fi}
+%\DeclareRobustCommand{\}}{\ifmmode\right\rbrace\else\textbraceright\fi}
+
+\endinput
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

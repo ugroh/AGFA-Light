@@ -1,0 +1,46 @@
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Unterstützung Deutsch bzw. Englisch
+%% agfa-babel.sty
+%% Stand: 2026-02-08
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\NeedsTeXFormat{LaTeX2e}	%
+\ProvidesPackage{ol-babel}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Initialisierungen
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{ifthen}
+ 	%\provideboolean{english}
+ 	\provideboolean{ngerman} 
+	\DeclareOption{ngerman}{%
+		%\setboolean{english}{false}
+		\setboolean{ngerman}{true} 
+		\setboolean{german}{true}
+		} 
+%% -- Abarbeiten
+\ProcessOptions\relax
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pakete
+%% Dies kann bei Bedarf 1:1 gegen polyglossia ausgetauscht werden, 
+%% wenn man auf LuaLaTeX umsteigt
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage[english,main=ngerman]{babel}
+\RequirePackage[autostyle,german=guillemets]{csquotes}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Ausführung
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage[ngerman,backgroundcolor=white]{todonotes}  
+    \newcommand{\mytodotext}{ToDo: }
+    \newcommand{\myquestiontext}{Frage: }
+    \newcommand{\myanswertext}{Antwort: }
+    
+\newcommand{\mytodo}[1]{\todo[inline,size=\small]{\mytodotext #1}}
+\newcommand{\myquestion}[1]{\todo[inline,size=\small]{\myquestiontext #1}}
+\newcommand{\myanswer}[1]{\todo[inline,size=\small]{\myanswertext #1}}
+
+%% 
+\endinput
+
+

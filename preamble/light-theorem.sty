@@ -1,0 +1,179 @@
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Theoremumgebungen für AGFA-Master
+%% Mit amsthm + thmtools (modern und cleveref-kompatibel)
+%% agfa-theorem.sty
+%% Stand: 2026-02-08
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{./preamble/light-theorem}[2025-10-10 v2.0 AGFA theorem environments with amsthm]
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Initialisierungen
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{ifthen,etoolbox}
+%\provideboolean{framed}
+%\provideboolean{english}
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Deklaration von Optionen
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\DeclareOption{framed}{\setboolean{framed}{true}}
+%\DeclareOption{english}{\setboolean{english}{true}}
+\ProcessOptions\relax
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Notwendige Pakete
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{amsthm}
+\RequirePackage{thmtools}
+\RequirePackage{empheq}
+
+%%% Für gerahmte Varianten
+%\ifthenelse{\boolean{framed}}{%
+%    \RequirePackage{mdframed}
+%    \mdfsetup{%
+%        leftmargin      = 10pt,
+%        everyline       = true,
+%        splittopskip    = 15pt,
+%        splitbottomskip = 10pt
+%    }
+%}{}
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Theorem-Stile vorbereiten
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\theoremstyle{plain}      % Für Theoreme, Lemmata
+\theoremstyle{definition} % Für Definitionen
+\theoremstyle{remark}     % Für Bemerkungen
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Hauptteil - Theorem-Definitionen
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\ifthenelse{\boolean{framed}}{%
+%  %% ===== MIT RAHMEN =====
+%  \theoremstyle{plain}
+%  \ifthenelse{\boolean{english}}{%
+%    %% Englisch mit Rahmen
+%    \declaretheorem[name=Theorem, numberwithin=section, mdframed={style=mdfstyle}]{theorem}
+%    \declaretheorem[name=Proposition, sharenumber=theorem, mdframed={style=mdfstyle}]{proposition}
+%    \declaretheorem[name=Lemma, sharenumber=theorem, mdframed={style=mdfstyle}]{lemma}
+%    \declaretheorem[name=Corollary, sharenumber=theorem, mdframed={style=mdfstyle}]{corollary}
+%    %% Kurzformen
+%    \declaretheorem[name=Theorem, sharenumber=theorem, mdframed={style=mdfstyle}]{thm}
+%    \declaretheorem[name=Lemma, sharenumber=theorem, mdframed={style=mdfstyle}]{lem}
+%    \declaretheorem[name=Corollary, sharenumber=theorem, mdframed={style=mdfstyle}]{cor}
+%    \declaretheorem[name=Proposition, sharenumber=theorem, mdframed={style=mdfstyle}]{prop}
+%  }{%
+%    %% Deutsch mit Rahmen
+%    \declaretheorem[name=Theorem, numberwithin=section, mdframed={style=mdfstyle}]{theorem}
+%    \declaretheorem[name=Satz, sharenumber=theorem, mdframed={style=mdfstyle}]{proposition}
+%    \declaretheorem[name=Lemma, sharenumber=theorem, mdframed={style=mdfstyle}]{lemma}
+%    \declaretheorem[name=Korollar, sharenumber=theorem, mdframed={style=mdfstyle}]{corollary}
+%    \declaretheorem[name=Vermutung, sharenumber=theorem, mdframed={style=mdfstyle}]{conjecture}
+%    %% Kurzformen
+%    \declaretheorem[name=Theorem, sharenumber=theorem, mdframed={style=mdfstyle}]{thm}
+%    \declaretheorem[name=Lemma, sharenumber=theorem, mdframed={style=mdfstyle}]{lem}
+%    \declaretheorem[name=Korollar, sharenumber=theorem, mdframed={style=mdfstyle}]{cor}
+%    \declaretheorem[name=Satz, sharenumber=theorem, mdframed={style=mdfstyle}]{prop}
+%    \declaretheorem[name=Vermutung, sharenumber=theorem, mdframed={style=mdfstyle}]{conj}
+%  }
+%}{%
+  %% ===== OHNE RAHMEN =====
+  \theoremstyle{plain}
+%  \ifthenelse{\boolean{english}}{%
+%    %% Englisch ohne Rahmen
+%    \declaretheorem[name=Theorem, numberwithin=section]{theorem}
+%    \declaretheorem[name=Proposition, sharenumber=theorem]{proposition}
+%    \declaretheorem[name=Lemma, sharenumber=theorem]{lemma}
+%    \declaretheorem[name=Corollary, sharenumber=theorem]{corollary}
+%    %% Kurzformen
+%    \declaretheorem[name=Theorem, sharenumber=theorem]{thm}
+%    \declaretheorem[name=Lemma, sharenumber=theorem]{lem}
+%    \declaretheorem[name=Corollary, sharenumber=theorem]{cor}
+%    \declaretheorem[name=Proposition, sharenumber=theorem]{prop}
+%  }{%
+    %% Deutsch ohne Rahmen
+    \declaretheorem[name=Theorem, numberwithin=section]{theorem}
+    \declaretheorem[name=Satz, sharenumber=theorem]{proposition}
+    \declaretheorem[name=Lemma, sharenumber=theorem]{lemma}
+    \declaretheorem[name=Korollar, sharenumber=theorem]{corollary}
+    \declaretheorem[name=Vermutung, sharenumber=theorem]{conjecture}
+    %% Kurzformen
+    \declaretheorem[name=Theorem, sharenumber=theorem]{thm}
+    \declaretheorem[name=Lemma, sharenumber=theorem]{lem}
+    \declaretheorem[name=Korollar, sharenumber=theorem]{cor}
+    \declaretheorem[name=Satz, sharenumber=theorem]{prop}
+    \declaretheorem[name=Vermutung, sharenumber=theorem]{conj}
+%  }
+%}
+
+%% -------------------------------------------------
+%% Definitionen und Beispiele (definition style)
+%% -------------------------------------------------
+\theoremstyle{definition}
+%\ifthenelse{\boolean{english}}{%
+%    \declaretheorem[name=Example, sharenumber=theorem]{example}
+%    \declaretheorem[name=Examples, sharenumber=theorem]{examples}
+%    \declaretheorem[name=Definition, sharenumber=theorem]{definition}
+%    \declaretheorem[name=Definition, sharenumber=theorem]{defn}
+%}{%
+    \declaretheorem[name=Beispiel, sharenumber=theorem]{example}
+    \declaretheorem[name=Beispiele, sharenumber=theorem]{examples}
+    \declaretheorem[name=Definition, sharenumber=theorem]{definition}
+    \declaretheorem[name=Definition, sharenumber=theorem]{defn}
+%}
+
+%% -------------------------------------------------
+%% Aufgaben (eigener Counter mit Section)
+%% -------------------------------------------------
+%\ifthenelse{\boolean{english}}{%
+%    \declaretheorem[name=Exercise, numberwithin=section]{exercise}
+%    \declaretheorem[name=Exercise, sharenumber=exercise]{aufgabe}
+%}{%
+    \declaretheorem[name=Aufgabe, numberwithin=section]{exercise}
+    \declaretheorem[name=Aufgabe, sharenumber=exercise]{aufgabe}
+%}
+
+%% -------------------------------------------------
+%% Bemerkungen (remark style, kleiner Text)
+%% -------------------------------------------------
+\theoremstyle{remark}
+%\ifthenelse{\boolean{english}}{%
+%    \declaretheorem[name=Remark, sharenumber=theorem]{remark}
+%    \declaretheorem[name=Remarks, sharenumber=theorem]{remarks}
+%    \declaretheorem[name=Remark, sharenumber=theorem]{rem}
+%}{%
+    \declaretheorem[name=Anmerkung, sharenumber=theorem]{remark}
+    \declaretheorem[name=Anmerkungen, sharenumber=theorem]{remarks}
+    \declaretheorem[name=Anmerkung, sharenumber=theorem]{anmerkung}
+    \declaretheorem[name=Anmerkungen, sharenumber=theorem]{anmerkungen}
+    \declaretheorem[name=Anmerkung, sharenumber=theorem]{rem}
+%}
+
+%% -------------------------------------------------
+%% Unnummerierte Umgebungen
+%% -------------------------------------------------
+%\ifthenelse{\boolean{english}}{%
+%    \declaretheorem[name=Summary, numbered=no]{summary}
+%    \declaretheorem[name=Summary, numbered=no]{zusammenfassung}
+%    \declaretheorem[name=Question, numbered=no]{question}
+%    \declaretheorem[name=Question, numbered=no]{frage}
+%}{%
+    \declaretheorem[name=Zusammenfassung, numbered=no]{summary}
+    \declaretheorem[name=Zusammenfassung, numbered=no]{zusammenfassung}
+    \declaretheorem[name=Frage, numbered=no]{question}
+    \declaretheorem[name=Frage, numbered=no]{frage}
+%}
+
+%% -------------------------------------------------
+%% Beweis-Umgebung
+%% -------------------------------------------------
+%\ifthenelse{\boolean{english}}{%
+%    \renewcommand{\proofname}{Proof}
+%}{%
+    \renewcommand{\proofname}{Beweis}
+    %\renewcommand{\qedsymbol}{$\square$}
+%}
+
+\endinput

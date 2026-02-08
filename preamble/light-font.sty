@@ -1,0 +1,43 @@
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Schriftarten für AGFA-Master
+%% agfa-font.sty
+%% Stand: 2025/09/14
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{./preamble/light-font}
+
+\RequirePackage{ifthen}
+\provideboolean{lmodern}
+\provideboolean{libertinus}
+
+\DeclareOption{lmodern}{\setboolean{lmodern}{true}}
+\DeclareOption{libertinus}{\setboolean{libertinus}{true}}
+\ProcessOptions\relax
+
+%% Modern LaTeX - UTF8 ist Standard
+\RequirePackage[T1]{fontenc}
+\RequirePackage{textcomp}
+
+%% Font-Auswahl
+\ifthenelse{\boolean{lmodern}}{%
+    \RequirePackage{lmodern}
+}{}
+
+\ifthenelse{\boolean{libertinus}}{%
+    \RequirePackage{libertinus}
+}{}
+
+%% Default: Times (falls keine Option gewählt)
+\newif\ifanyfont
+\anyfontfalse
+\ifthenelse{\boolean{lmodern}}{\anyfonttrue}{}
+\ifthenelse{\boolean{libertinus}}{\anyfonttrue}{}
+
+\ifanyfont\else
+    \RequirePackage{mathptmx}
+    \RequirePackage[scaled=.90]{helvet}
+    \RequirePackage{courier}
+\fi
+
+\endinput

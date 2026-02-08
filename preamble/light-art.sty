@@ -7,24 +7,16 @@
 %% Kenndaten
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \NeedsTeXFormat{LaTeX2e}											
-\ProvidesPackage{./preamble/agfa-art}
+\ProvidesPackage{./preamble/light-art}
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Initialisierungen
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{ifthen}
 	\provideboolean{numeric}
-	%\provideboolean{alphabetic}     
-	%\provideboolean{philosophy}      
-	%\provideboolean{urldoi}
- 	%\provideboolean{english}
  	\provideboolean{german}
-	%\provideboolean{refenglish}
 	\provideboolean{lmodern}
 	\provideboolean{libertinus}
-	%\provideboolean{thmframed}
-	%\provideboolean{framed}
 	\provideboolean{review}
-
 %%
 
 %% -- Deklaration von Optionen
@@ -32,36 +24,17 @@
 
 \DeclareOption*{\expandafter\PassOptionsToClass\expandafter{\CurrentOption}{scrartcl}}
 
-%% -- Sprache (alle english-bezogenen Aktionen zusammen)
-%% --
-
-%\DeclareOption{english}{%
-%	\setboolean{english}{true}%
-%	\setboolean{refenglish}{true}%
-%	\PassOptionsToPackage{english}{agfa-babel}%
-%	\PassOptionsToPackage{english}{agfa-hyperef}%
-%	\PassOptionsToPackage{english}{agfa-theorem}%
-%	\PassOptionsToPackage{english}{agfa-biblio}%  
-%}
-
-%% -- mathematische Umgebungen mit/ohne Rahmen
-%% --
-
-%\DeclareOption{thmframed}{\PassOptionsToPackage{framed}{agfa-theorem}}
-
 %% -- Schrift
 %% --
 
-\DeclareOption{lmodern}{\PassOptionsToPackage{lmodern}{agfa-font}}
-\DeclareOption{libertinus}{\PassOptionsToPackage{libertinus}{agfa-font}}
+\DeclareOption{lmodern}{\PassOptionsToPackage{lmodern}{./preamble/light-font}}
+\DeclareOption{libertinus}{\PassOptionsToPackage{libertinus}{./preamble/light-font}}
 
 %% -- Bibliographie-Stile  
 %% --
 
-\DeclareOption{numeric}{\PassOptionsToPackage{numeric}{agfa-biblio}}
-\DeclareOption{alphabetic}{\PassOptionsToPackage{alphabetic}{agfa-biblio}}
-%\DeclareOption{philosophy}{\PassOptionsToPackage{philosophy}{agfa-biblio}}
-%\DeclareOption{urldoi}{\PassOptionsToPackage{urldoi}{agfa-biblio}}
+\DeclareOption{numeric}{\PassOptionsToPackage{numeric}{./preamble/light-biblio}}
+%\DeclareOption{alphabetic}{\PassOptionsToPackage{alphabetic}{./preamble/light-biblio}}
 
 %% -- Zeilenabstand verdoppelt
 %% --
@@ -78,21 +51,21 @@
 \RequirePackage{etex,etoolbox,letltxmacro,metalogo}
 
 %% -- 
-\RequirePackage{./preamble/agfa-font}
-\RequirePackage{./preamble/agfa-layout}
-\RequirePackage{./preamble/agfa-pakete}
-\RequirePackage{./preamble/agfa-babel}
-\RequirePackage{./preamble/agfa-listen}
+\RequirePackage{./preamble/light-font}
+\RequirePackage{./preamble/light-layout}
+\RequirePackage{./preamble/light-pakete}
+\RequirePackage{./preamble/light-babel}
+\RequirePackage{./preamble/light-listen}
 %% --
-\RequirePackage{./preamble/agfa-mathtools}
-\RequirePackage{./preamble/agfa-theorem}
+\RequirePackage{./preamble/light-mathtools}
+\RequirePackage{./preamble/light-theorem}
 %% --
-\RequirePackage{./preamble/agfa-defn}
-\RequirePackage{./preamble/agfa-biblio}
+\RequirePackage{./preamble/light-defn}
+\RequirePackage{./preamble/light-biblio}
 %% --
-\RequirePackage{./preamble/agfa-hyperref}
+\RequirePackage{./preamble/light-hyperref}
 %% --
-\RequirePackage{./preamble/agfa-abkuerz}	
+\RequirePackage{./preamble/light-abkuerz}	
 
 %% -- Zeilenabstand für review
 %% --

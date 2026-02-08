@@ -1,0 +1,225 @@
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% agfa-biblio.sty 
+%% Für die Darstellung des Literaturverzeichnisses
+%% Eingabe von URL etc. möglich
+%% Stand: 2026-02-08
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{./preamble/light-biblio}
+%%
+\RequirePackage{ifthen}	
+%\provideboolean{english}
+\provideboolean{ngerman}
+\provideboolean{german}
+\provideboolean{numeric}
+\provideboolean{alphabetic}
+%\DeclareOption{english}{\setboolean{english}{true}}
+\DeclareOption{ngerman}{\setboolean{ngerman}{true}}
+\DeclareOption{german}{\setboolean{ngerman}{true}}
+\DeclareOption{numeric}{\setboolean{numeric}{true}}
+\DeclareOption{alphabetic}{\setboolean{alphabetic}{true}}
+\ProcessOptions\relax
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Biblatex mit Biber
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Fallback + Priorität: numeric als Standard
+\ifthenelse{\boolean{numeric}\OR\boolean{alphabetic}}{}{%
+  \setboolean{numeric}{true}%
+}
+%% --
+%% Fallback + Priorität: numeric als Standard
+%\ifthenelse{\boolean{numeric}\OR\boolean{alphabetic}}{}{%
+%  \setboolean{numeric}{true}%
+%}
+%% 
+\ifthenelse{\boolean{numeric}}{%
+	\RequirePackage[%
+		style		= numeric,
+		sorting		= nyt,
+		hyperref	= true,
+		giveninits	= true,
+		backend		= biber,
+		uniquename	= false
+		]{biblatex}}{}%
+	
+\ifthenelse{\boolean{alphabetic}}{%
+	\RequirePackage[%
+		style		= alphabetic,
+		sorting		= nyt,
+		hyperref	= true,
+		giveninits	= true,
+		backend		= biber,
+		uniquename	= false
+		]{biblatex}}{}
+%% --
+\setlength{\bibhang}{1em}
+\setlength{\bibnamesep}{.5\normalbaselineskip}
+\setlength{\biblabelsep}{.75em}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Backref - Rückverweis auf Seiten
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\ifthenelse{\boolean{english}}{%
+%	\DefineBibliographyStrings{english}{%
+%		backrefpage  = {cited on p\adddot},
+%		backrefpages = {cited on pp\adddot},
+%	}
+%}{}
+\ifthenelse{\boolean{ngerman}}{%
+	\DefineBibliographyStrings{ngerman}{%
+		backrefpage  = {Zitiert auf S\adddot},
+		backrefpages = {Zitiert auf S\adddot},
+	}
+}{}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% URL-Strings
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\ifthenelse{\boolean{english}}{%
+%	\DefineBibliographyStrings{english}{%
+%		urlfrom		= {online },
+%		andothers	= {et al\adddot},
+%		urlseen		= {visited on },
+%	}
+%}{}
+\ifthenelse{\boolean{ngerman}}{%
+	\DefineBibliographyStrings{ngerman}{%
+		andothers	= {et al\adddot},
+		and			= {u\adddot},
+		urlseen		= {aufgerufen am },
+		urlfrom		= {URL },
+	}
+}{}
+\DeclareFieldFormat{url}{\bibstring{urlfrom}\addcolon\space\url{#1}}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Shorthand
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\defbibcheck{noshorthand}{%
+	\iffieldundef{shorthand}{}{\skipentry}
+}
+\DeclareBibliographyDriver{shorthands}{%
+	\usedriver{\DeclareNameAlias{sortname}{default}}{\thefield{entrytype}}%
+	\setunit{\bibpagerefpunct}\newblock
+	\usebibmacro{pageref}%
+	\finentry
+}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Unnötige Felder entfernen
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\AtEveryBibitem{\clearfield{issn}}
+\AtEveryBibitem{\clearlist{language}}
+\AtEveryBibitem{\clearlist{location}}
+\AtEveryBibitem{\clearfield{pagetotal}}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Kein Komma nach Verlag bei Büchern
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewbibmacro*{publisher+location+date}{%
+	\printlist{publisher}%
+	\setunit*{\addspace}%
+	\usebibmacro{date}%
+	\newunit
+}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Ausgabe Journal-Band(Nummer)-Jahr-Seiten
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewbibmacro*{journal+issuetitle}{%
+	\usebibmacro{journal}%
+	\setunit*{\addspace}%
+	\iffieldundef{series}{}{\newunit\printfield{series}\setunit{\addspace}}%
+	\printfield{volume}%
+	\iffieldundef{number}{}{\kern1pt\mkbibparens{\printfield{number}}}%
+	\setunit{\addcomma\space}%
+	\printfield{eid}%
+	\setunit{\addspace}%
+	\usebibmacro{issue+date}%
+	\setunit{\addcolon\space}%
+	\usebibmacro{issue}%
+	\newunit
+}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Felder bei Typ -- article --
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareFieldFormat[article]{number}{#1}
+\DeclareFieldFormat[article]{volume}{\textbf{#1}}
+\DeclareFieldFormat[article]{pages}{#1.}
+\DeclareFieldFormat[article]{title}{\mkbibemph{#1}}
+\DeclareFieldFormat{journaltitle}{#1}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Felder bei Typ -- book --
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareFieldFormat[book]{title}{\mkbibemph{#1}}
+\DeclareFieldFormat[book]{date}{\mkbibparens{#1}}
+\DeclareFieldFormat[book]{pages}{}
+\DeclareFieldFormat[book]{pagetotal}{}
+\DeclareFieldFormat[book]{url}{}
+\DeclareFieldFormat[book]{language}{}
+\DeclareFieldFormat[book]{isbn}{}
+\DeclareFieldFormat[book]{series}{}
+\DeclareFieldFormat[book]{number}{}
+\DeclareFieldFormat[book]{edition}{}
+\DeclareFieldFormat[book]{address}{}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Felder bei Typ -- manual --
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareFieldFormat[manual]{title}{\mkbibemph{#1}}
+\DeclareFieldFormat[manual]{date}{}
+\DeclareFieldFormat[manual]{version}{}
+\DeclareFieldFormat[manual]{subtitle}{}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Postnote
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareFieldFormat{postnote}{#1}
+\DeclareFieldFormat{multipostnote}{#1}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Punkt, Komma, Format Namen etc.
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand*{\labelnamepunct}{\addcolon\space}
+\renewcommand*{\finalnamedelim}{\addspace\&\addspace}
+\renewcommand*{\bibpagespunct}{\addcomma\addspace}
+\renewcommand{\mkbibnamegiven}{\textsc}
+\renewcommand{\mkbibnamefamily}{\textsc}
+\renewcommand*{\intitlepunct}{}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Kein "in:"
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewbibmacro{in:}{}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% URL auf neuer Zeile
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newbibmacro*{bbx:parunit}{%
+	\ifbibliography{%
+		\setunit{\bibpagerefpunct}\newblock
+		\usebibmacro{pageref}%
+		\clearlist{pageref}%
+		\setunit{\par\nobreak}
+	}{}
+}
+\renewbibmacro*{doi+eprint+url}{%
+	\usebibmacro{bbx:parunit}%
+	\iftoggle{bbx:doi}{\printfield{doi}}{}%
+	\iftoggle{bbx:eprint}{\usebibmacro{eprint}}{}%
+	\iftoggle{bbx:url}{\usebibmacro{url+urldate}}{}
+}
+\renewbibmacro*{eprint}{%
+	\usebibmacro{bbx:parunit}%
+	\iffieldundef{eprinttype}{%
+		\printfield{eprint}
+	}{%
+		\printfield[eprint:\strfield{eprinttype}]{eprint}
+	}
+}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Url und DOI an Titel binden Voss 4.10.10, S. 200
+%% und https://bit.ly/2YghEHH
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newbibmacro{string+doi}[1]{%
+	\iffieldundef{doi}{#1}{\href{http://dx.doi.org/\thefield{doi}}{#1}}
+}
+\DeclareFieldFormat{title}{%
+	\usebibmacro{string+doi}{\mkbibemph{#1}}
+}
+\DeclareFieldFormat[article,manual]{title}{%
+	\usebibmacro{string+doi}{\mkbibemph{#1}}
+}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Literaturverzeichnisse
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\endinput
