@@ -27,13 +27,13 @@
 %% -- Schrift
 %% --
 
-\DeclareOption{lmodern}{\PassOptionsToPackage{lmodern}{ol-font}}
-\DeclareOption{libertinus}{\PassOptionsToPackage{libertinus}{ol-font}}
+\DeclareOption{lmodern}{\PassOptionsToPackage{lmodern}{ol-preamble/ol-font}}
+\DeclareOption{libertinus}{\PassOptionsToPackage{libertinus}{ol-preamble/ol-font}}
 
 %% -- Bibliographie-Stile  
 %% --
 
-\DeclareOption{numeric}{\PassOptionsToPackage{numeric}{ol-biblio}}
+\DeclareOption{numeric}{\PassOptionsToPackage{numeric}{ol-preamble/ol-biblio}}
 %\DeclareOption{alphabetic}{\PassOptionsToPackage{alphabetic}{ol-biblio}}
 
 %% -- Zeilenabstand verdoppelt
@@ -51,21 +51,21 @@
 \RequirePackage{etex,etoolbox,letltxmacro,metalogo}
 
 %% -- 
-\RequirePackage{ol-font}
-\RequirePackage{ol-layout}
-\RequirePackage{ol-pakete}
-\RequirePackage{ol-babel}
-\RequirePackage{ol-listen}
+\RequirePackage{ol-preamble/ol-font}
+\RequirePackage{ol-preamble/ol-layout}
+\RequirePackage{ol-preamble/ol-pakete}
+\RequirePackage{ol-preamble/ol-babel}
+\RequirePackage{ol-preamble/ol-listen}
 %% --
-\RequirePackage{ol-mathtools}
-\RequirePackage{ol-theorem}
+\RequirePackage{ol-preamble/ol-mathtools}
+\RequirePackage{ol-preamble/ol-theorem}
 %% --
-\RequirePackage{ol-defn}
-\RequirePackage{ol-biblio}
+\RequirePackage{ol-preamble/ol-defn}
+\RequirePackage{ol-preamble/ol-biblio}
 %% --
-\RequirePackage{ol-hyperref}
+\RequirePackage{ol-preamble/ol-hyperref}
 %% --
-\RequirePackage{ol-abkuerz}	
+\RequirePackage{ol-preamble/ol-abkuerz}	
 
 %% -- Zeilenabstand für review
 %% --
