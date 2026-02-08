@@ -1,0 +1,122 @@
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Startpaket für AGFA-Master
+%% agfa-art.sty
+%% Stand: 2025/09/14
+%% Literatur: Der LaTeX-Begleiter, A.4, Seite 910 ff
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Kenndaten
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\NeedsTeXFormat{LaTeX2e}											
+\ProvidesPackage{agfa-art}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Initialisierungen
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{ifthen}
+	\provideboolean{numeric}
+	\provideboolean{alphabetic}     
+	\provideboolean{philosophy}      
+ 	\provideboolean{english}
+	\provideboolean{refenglish}
+	\provideboolean{lmodern}
+	\provideboolean{libertinus}
+	\provideboolean{thmframed}
+	\provideboolean{framed}
+	\provideboolean{review}
+	\provideboolean{urldoi}
+%%
+
+%% -- Deklaration von Optionen
+%% --
+
+\DeclareOption*{\expandafter\PassOptionsToClass\expandafter{\CurrentOption}{scrartcl}}
+
+%% -- Sprache (alle english-bezogenen Aktionen zusammen)
+%% --
+
+\DeclareOption{english}{%
+	\setboolean{english}{true}%
+	\setboolean{refenglish}{true}%
+	\PassOptionsToPackage{english}{agfa-babel}%
+	\PassOptionsToPackage{english}{agfa-hyperef}%
+	\PassOptionsToPackage{english}{agfa-theorem}%
+	\PassOptionsToPackage{english}{agfa-biblio}%  
+}
+
+%% -- mathematische Umgebungen mit/ohne Rahmen
+%% --
+
+\DeclareOption{thmframed}{\PassOptionsToPackage{framed}{agfa-theorem}}
+
+%% -- Schrift
+%% --
+
+\DeclareOption{lmodern}{\PassOptionsToPackage{lmodern}{agfa-font}}
+\DeclareOption{libertinus}{\PassOptionsToPackage{libertinus}{agfa-font}}
+
+%% -- Bibliographie-Stile
+%% --
+
+\DeclareOption{numeric}{\PassOptionsToPackage{numeric}{agfa-biblio}}
+\DeclareOption{alphabetic}{\PassOptionsToPackage{alphabetic}{agfa-biblio}}
+\DeclareOption{philosophy}{\PassOptionsToPackage{philosophy}{agfa-biblio}}
+\DeclareOption{urldoi}{\PassOptionsToPackage{urldoi}{agfa-biblio}}
+
+%% -- Zeilenabstand verdoppelt
+%% --
+\DeclareOption{review}{\setboolean{review}{true}} 
+
+\ProcessOptions\relax
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Laden von Paketen 
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage[all]{onlyamsmath}			% Fehler bei Eingabe Mathematik
+\RequirePackage[l2tabu,orthodox]{nag}
+\RequirePackage{etex,etoolbox,letltxmacro,metalogo}
+
+%% -- 
+\RequirePackage{agfa-font}
+\RequirePackage{agfa-layout}
+\RequirePackage{agfa-pakete}
+\RequirePackage{agfa-babel}
+\RequirePackage{agfa-listen}
+%% --
+\RequirePackage{agfa-mathtools}
+\RequirePackage{agfa-theorem}
+%% --
+\RequirePackage{agfa-defn}
+\RequirePackage{agfa-biblio}
+%% --
+\RequirePackage{agfa-hyperref}
+%% --
+\RequirePackage{agfa-abkuerz}	
+
+%% -- Zeilenabstand für review
+%% --
+\ifthenelse{\boolean{review}}
+{%% -- if
+	\RequirePackage[doublespacing]{setspace}
+ }
+ {%% -- else
+ }
+
+\endinput
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

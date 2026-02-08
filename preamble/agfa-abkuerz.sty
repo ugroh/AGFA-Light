@@ -1,0 +1,45 @@
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Abkürzungen 
+%% agfa-abkuerz.sty
+%% Stand: 2025-10-07
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{./preamble/agfa-abkuerz}
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Initialisierungen
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ProcessOptions\relax
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Pakete
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{xspace}
+%%
+\AtBeginDocument{%
+%% -- Abkürzungen
+%% -- Englisch
+\newcommand{\eg}{\mbox{e.g.}\xspace}
+\newcommand{\ie}{\mbox{i.e.}\xspace}
+
+%% -- Deutsch
+\newcommand{\zB}{\mbox{z.\,B.}\xspace}
+\newcommand{\iA}{\mbox{i.\,A.}\xspace}
+\newcommand{\iAllg}{\mbox{i.\,Allg.}\xspace}
+\renewcommand{\dh}{\mbox{d.\,h.}\xspace}
+\newcommand{\oAe}{\mbox{o.\,Ä.}\xspace}
+\newcommand{\uAe}{\mbox{u.\,Ä.}\xspace}
+\newcommand{\og}{\mbox{o.\,g.}\xspace}
+\newcommand{\ua}{\mbox{u.\,a.}\xspace}
+\newcommand{\inkl}{inkl.\xspace}
+\newcommand{\sog}{sog.\xspace}
+\newcommand{\bzgl}{bzgl.\xspace}
+\newcommand{\fue}{\mbox{f.\,ü.}\xspace}
+\newcommand{\vs}{vs.\xspace}
+\newcommand{\ca}{ca.\xspace}
+\newcommand{\bzw}{bzw.\xspace}
+\newcommand{\etc}{etc.\xspace}
+\newcommand{\usw}{usw.\xspace}
+\newcommand{\ggf}{ggf.\xspace}
+\newcommand{\evtl}{evtl.\xspace}
+\newcommand{\vgl}{vgl.\xspace}
+} %% Ende \AtBeginDocument
+\endinput

@@ -1,0 +1,110 @@
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Listen für AGFA-Master
+%% agfa-listen.sty
+%% Stand: 2025/09/14
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NeedsTeXFormat{LaTeX2e}	%
+\ProvidesPackage{./preamble/agfa-listen}
+\RequirePackage[inline,shortlabels]{enumitem}	
+
+% gemeinsame Definitionen
+\setlist{%
+  labelsep=0.75em,
+  itemsep=0.15ex,
+  parsep=.75ex,
+  labelwidth=10pt
+}
+
+%% -------------------
+%% Enumerate
+%% -------------------
+\newlist{myenumerate}{enumerate}{2}
+\setlist[myenumerate,1]{%
+	label=\upshape(\roman*),
+  	leftmargin=1em,
+  	itemindent=2em
+}
+
+\setlist[myenumerate,2]{%
+	label=\textrm{--}\kern1pt, 
+	leftmargin=1.5em,
+	itemindent=1.5em
+}
+
+%% -------------------		
+%% Äquivalent
+%% -------------------
+\newlist{myequivalent}{enumerate}{2}
+\setlist[myequivalent,1]{%
+	label=\upshape(\alph*),
+	leftmargin=1em,
+	itemindent=2em
+}
+	
+\setlist[myequivalent,2]{%
+	label=\textrm{--}\kern1pt,
+	leftmargin=1.5em,
+	itemindent=1.5em
+}
+
+%% -------------------
+%% Itemize
+%% -------------------
+\newlist{myitemize}{itemize}{2}
+\setlist[myitemize,1]{
+	label=$\bullet$,
+	leftmargin=1em,
+	itemindent=1.5em
+}
+
+\setlist[myitemize,2]{
+	label=$\circ$\kern1pt,
+	leftmargin=1.5em,
+	itemindent=1em
+}
+	
+%% -------------------
+%% Number
+%% -------------------
+\newlist{mynumber}{enumerate}{2}
+\setlist[mynumber,1]{
+	label=(\arabic*),
+	leftmargin=1em,
+	itemindent=2em
+}
+	
+\setlist[mynumber,2]{
+	label=\textrm{--}\kern1pt, 
+	leftmargin=1.5em,
+	itemindent=1.5em
+}
+
+%% -------------------
+%% Inline-Listen
+%% -------------------
+\newlist{myinliner}{enumerate*}{1}
+\setlist[myinliner,1]{%
+	label=\upshape(\roman*)}
+
+\newlist{myinlinea}{enumerate*}{1}
+\setlist[myinlinea,1]{%
+	label=\upshape(\alph*)}
+
+%% -------------------	
+%% Spezielles; noch aufnehmen in ReadMe
+%% -------------------
+\RequirePackage{mdframed}
+
+\newenvironment{synopsis}%
+{\begin{mdframed}
+\emph{Hinweise: }\begin{enumerate*}[label={$\cdot$},before=\unskip{\quad}]}
+{\end{enumerate*}\end{mdframed}}
+%%
+\newenvironment{content}%
+{\begin{mdframed}
+\emph{Inhalt: }\begin{enumerate*}[label={$\cdot$},before=\unskip{\quad}]}
+{\end{enumerate*}\end{mdframed}}
+%%
+
+\endinput
