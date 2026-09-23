@@ -1,52 +1,71 @@
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Querverweise und hyperref
-%% agfa-hyperref.sty
-%% Stand: 2026-02-08
+%% light-hyperref.sty
+%% Stand: 2026-09-23
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{./preamble/light-hyperref}[2025-10-09 v1.3 Hyperref and cross-reference configuration]
+\ProvidesPackage{agfa-hyperref}[2026-09-23 v1.5 Hyperref and cross-reference configuration]
 
 \RequirePackage{ifthen}
-%\provideboolean{english}
+\provideboolean{english}
 \provideboolean{german}
 
-%\DeclareOption{english}{%
-%    \setboolean{english}{true}%
-%    \setboolean{german}{false}}
+\DeclareOption{english}{%
+    \setboolean{english}{true}%
+    \setboolean{german}{false}}
 \DeclareOption{german}{%
-    %\setboolean{english}{false}%
+    \setboolean{english}{false}%
     \setboolean{german}{true}}
 \DeclareOption{ngerman}{%
-   % \setboolean{english}{false}%
+    \setboolean{english}{false}%
     \setboolean{german}{true}}
 \ProcessOptions\relax
 
+%% Workaround fuer varioref >= 1.6h (TeX Live 2026):
+%% varioref legt beim Laden \extras<Sprache> mit \csname an und haengt dann
+%% seine Strings an. Existiert das Makro noch nicht (kein babel, z.B. bei
+%% polyglossia), enthaelt es sich danach selbst -> Endlosrekursion
+%% "input stack size" bei \begin{document}.
+%% Loesung: die Makros vorher (leer) definieren; babel-Definitionen bleiben
+%% unberuehrt, da \providecommand nur Undefiniertes anlegt.
+\providecommand*{\extrasenglish}{}
+\providecommand*{\extrasngerman}{}
+\providecommand*{\extrasgerman}{}
+
 %% Pakete laden
-%\ifthenelse{\boolean{english}}{%
-%    \RequirePackage[english,nospace]{varioref}
-%}{%
-\RequirePackage[ngerman,nospace]{varioref}
-\RequirePackage[breaklinks=true]{hyperref}
-\RequirePackage{cleveref}
+%% Reihenfolge: varioref -> hyperref -> (amsthm) -> cleveref -> \newtheorem
+%% cleveref braucht die Sprache als eigene Option: babel-Optionen sieht es
+%% nicht. Ohne sie kommen englische Standardnamen ("eq.", "section", "item").
+\ifthenelse{\boolean{english}}{%
+    \RequirePackage[english,nospace]{varioref}
+    \RequirePackage[breaklinks=true]{hyperref}
+    \RequirePackage[english,noabbrev,nameinlink]{cleveref}
+}{%
+    \RequirePackage[ngerman,nospace]{varioref}
+    \RequirePackage[breaklinks=true]{hyperref}
+    \RequirePackage[ngerman,noabbrev,nameinlink]{cleveref}
+}
 
 
-%    \ifthenelse{\boolean{english}}{%
-%        %% Englische Namen
-%        \crefname{theorem}{Theorem}{Theorems}
-%        \crefname{thm}{Theorem}{Theorems}
-%        \crefname{exercise}{Exercise}{Exercise}
-%        \crefname{lemma}{Lemma}{Lemmas}
-%        \crefname{lem}{Lemma}{Lemmas}
-%        \crefname{proposition}{Proposition}{Propositions}
-%        \crefname{prop}{Proposition}{Propositions}
-%    	\crefname{corollary}{Corollary}{Corollaries}
-%    	\crefname{cor}{Corollary}{Corollaries}
-%        \crefname{conjecture}{Conjecture}{Conjectures}
-%        \crefname{definition}{Definition}{Definitions}
-%        \crefname{defn}{Definition}{Definitions}
-%        \crefname{example}{Example}{Examples}
-%        \crefname{item}{item}{items}
-%    }{%
+    \ifthenelse{\boolean{english}}{%
+        %% Englische Namen
+        \crefname{theorem}{Theorem}{Theorems}
+        \crefname{thm}{Theorem}{Theorems}
+        \crefname{exercise}{Exercise}{Exercises}
+        \crefname{lemma}{Lemma}{Lemmas}
+        \crefname{lem}{Lemma}{Lemmas}
+        \crefname{proposition}{Proposition}{Propositions}
+        \crefname{prop}{Proposition}{Propositions}
+        \crefname{corollary}{Corollary}{Corollaries}
+        \crefname{cor}{Corollary}{Corollaries}
+        \crefname{conjecture}{Conjecture}{Conjectures}
+        \crefname{definition}{Definition}{Definitions}
+        \crefname{defn}{Definition}{Definitions}
+        \crefname{example}{Example}{Examples}
+        \crefname{remark}{Remark}{Remarks}
+        \crefname{rem}{Remark}{Remarks}
+        \crefname{enumi}{item}{items}% Aufzaehlungspunkte: Zaehler heisst enumi
+    }{%
         %% Deutsche Namen
         \crefname{theorem}{Theorem}{Theoreme}
         \crefname{thm}{Theorem}{Theoreme}
@@ -63,8 +82,8 @@
         \crefname{remark}{Anmerkung}{Anmerkungen}
         \crefname{rem}{Anmerkung}{Anmerkungen}
         \crefname{exercise}{Aufgabe}{Aufgaben}
-        \crefname{item}{Punkt}{Punkte}
-    %}%
+        \crefname{enumi}{Punkt}{Punkte}% Aufzaehlungspunkte: Zaehler heisst enumi
+    }%
 
 
 \endinput
